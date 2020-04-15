@@ -62,15 +62,19 @@ void  sortedChain<K,E>::erase(const K &theKey)
   pairNode<K,E> *  nowNode=m_firstNode;
   pairNode<K,E> *  beforeNode=nullptr;
 
-  while(nowNode!=nullptr &&nowNode->m_element.first!=theKey)
+  while(nowNode!=nullptr &&nowNode->m_element.first<theKey)
   {
     beforeNode=nowNode;
     nowNode=nowNode->m_next;
   }
 
-  if(nowNode!=nullptr)
+  if(nowNode!=nullptr&&nowNode->m_element.first==theKey)
   {
-  beforeNode->m_next=nowNode->m_next;
+
+    if(beforeNode==nullptr)
+    m_firstNode=nowNode->m_next;
+    else
+      beforeNode->m_next=nowNode->m_next;
   delete nowNode;
   --m_Size;
   }
@@ -79,8 +83,9 @@ void  sortedChain<K,E>::erase(const K &theKey)
 template<class K,class E>
 void  sortedChain<K,E>::insert(const pair <const K,E> &thePair)
 {
-  pairNode<K,E> *  nowNode=m_firstNode;
-  pairNode<K,E> *  beforeNode=nullptr;
+  pairNode< K,E> *  nowNode=m_firstNode;
+  pairNode< K,E> *  beforeNode=nullptr;
+
   while(nowNode!=nullptr &&nowNode->m_element.first<thePair.first)
   {
     beforeNode=nowNode;
@@ -92,10 +97,10 @@ void  sortedChain<K,E>::insert(const pair <const K,E> &thePair)
     nowNode->m_element.second=thePair.second;
     return ;
   }
-   pairNode<const K,E> * newNode=new pairNode<const K,E> (thePair,nowNode);
+   pairNode< K,E> * newNode=new pairNode< K,E> (thePair,nowNode);
 
   if (beforeNode==nullptr) 
-   m_firstNode=newNode; 
+   m_firstNode=newNode;
   else
     beforeNode->m_next=newNode;
    ++m_Size;

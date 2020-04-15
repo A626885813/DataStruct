@@ -9,12 +9,10 @@ struct  pairNode
 {
   public:
   pairNode():m_next(nullptr){ }
-  pairNode(const pair<const K,E> &thePair,const pair<const K,E>  *theNext) : m_element(thePair), m_next(theNext){ }
-
-  private:
+  pairNode(const pair< const K,E> &thePair, pairNode< K,E> *theNext) : m_element(thePair), m_next(theNext){ }
 
   pair<const K,E>  m_element;
-  pair<const K,E>  *m_next;
+  pairNode< K,E>  *m_next;
 };
 
 
