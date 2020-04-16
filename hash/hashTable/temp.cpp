@@ -1,4 +1,4 @@
-#include "linear_hashTable.h"
+#include "hashChain.h"
 #include <iostream>
 #include <string>
 using namespace std;
@@ -9,7 +9,7 @@ int main ()
   string b("hhhhh2");
   string c("hhhhh3");
   string d("hhhhh4");
-  linear_hashTable< string,string>   thishash(10);
+  hashChain< string,string>   thishash(10);
   thishash.insert(pair<string ,string> (a,a));
   thishash.insert(pair<string ,string> (b,b));
   thishash.insert(pair<string ,string> (c,c));
@@ -18,7 +18,6 @@ int main ()
   cout<<  thishash.find(b)->second<<endl;
   cout<<  thishash.find(c)->second<<endl;
   cout<<  thishash.find(d)->second<<endl;
-  thishash.erase(a);
   thishash.erase(d);
   if(thishash.find(a)!=nullptr)
   cout<<  thishash.find(a)->second<<endl;
