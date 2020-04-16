@@ -43,7 +43,7 @@ class linear_hashTable:public  dictionary<K,E>
      {
        return m_dSize==0;
      }
-     int size() const 
+     int size() const
      {
        return m_dSize;
      }
@@ -60,7 +60,7 @@ class linear_hashTable:public  dictionary<K,E>
 template <class K,class E>
 int  linear_hashTable<K,E>::search(const K& theKey) const 
 {
-  int start=(int) myhash(theKey);
+  int start=(int) myhash(theKey)%m_divisor;
   int nowPosition=start;
 
   do {
@@ -77,7 +77,8 @@ int  linear_hashTable<K,E>::search(const K& theKey) const
 template <class K,class E>
 pair<const K,E> * linear_hashTable<K,E>::find(const K& theKey) const 
 {
-  int nowPosition=search(theKey);
+  int start=(int) myhash(theKey)%m_divisor;
+  int nowPosition=start;
 
   if(m_table[nowPosition]==nullptr||m_table[nowPosition]->first!=theKey)
     return nullptr;
@@ -87,7 +88,8 @@ pair<const K,E> * linear_hashTable<K,E>::find(const K& theKey) const
 template <class K,class E>
 void  linear_hashTable<K,E>::erase(const K & theKey)
 {
-  int nowPosition=search(theKey);
+  int start=(int) myhash(theKey)%m_divisor;
+  int nowPosition=start;
 
   if(m_table[nowPosition]==nullptr)
   {
@@ -96,6 +98,7 @@ void  linear_hashTable<K,E>::erase(const K & theKey)
   }
   else{
      delete m_table[nowPosition];
+     m_table[nowPosition]=nullptr;
       return ;
   }
 }
@@ -103,8 +106,10 @@ void  linear_hashTable<K,E>::erase(const K & theKey)
 template <class K,class E>
 void  linear_hashTable<K,E>::insert(const pair <const K,E> & theHash)
 {
-  int nowPosition=search(theHash.first);
+  int start=(int) myhash(theHash.first)%m_divisor;
+  int nowPosition=start;
 
+  std::cout<<nowPosition<<std::endl;
   if(m_table[nowPosition]==nullptr)
   {
     m_table[nowPosition]=new pair<const K,E>  (theHash);
