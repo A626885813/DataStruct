@@ -1,10 +1,12 @@
 #include "hashChain.h"
 #include <iostream>
 #include <string>
+#include  <limits.h>
 using namespace std;
 
 int main ()
 {
+
   string a("hhhhh1");
   string b("hhhhh2");
   string c("hhhhh3");
@@ -27,7 +29,6 @@ int main ()
   cout<<  thishash.find(c)->second<<endl;
   if(thishash.find(d)!=nullptr)
   cout<<  thishash.find(d)->second<<endl;
-
 
 
 

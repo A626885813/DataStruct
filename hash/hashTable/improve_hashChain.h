@@ -1,6 +1,6 @@
 #ifndef _HASHCHAIN_H
 #define _HASHCHAIN_H
-#include "sortedChain.h"
+#include "improve_sortedChain.h"
 
 
 template <class K,class E>

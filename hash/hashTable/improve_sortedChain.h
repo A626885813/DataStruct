@@ -1,7 +1,8 @@
-#ifndef _SORTEDCHAIN_H
-#define _SORTEDCHAIN_H
+#ifndef _THEIMPROVE_SORTEDCHAIN_H
+#define _THEIMPROVE_SORTEDCHAIN_H
 #include "pairNode.h"
 #include "dictionary.h"
+#include  <limits.h>
 
 size_t myhash(const string theKey)
 {
@@ -14,15 +15,21 @@ size_t myhash(const string theKey)
       return size_t(hashValue);
 };
 
+
 template<class K,class E>
 class sortedChain:public dictionary<K,E>
 {
   public :
-    sortedChain(): m_firstNode(nullptr),m_Size(0){ }
+    sortedChain()
+    {
+     m_firstNode=nullptr;
+     m_Size=0;
+    }
     ~sortedChain()
     {
       pairNode<K,E> *  nowNode=m_firstNode;
       pairNode<K,E> *  deleteNode;
+      delete m_thefirst;
       while(nowNode!=nullptr)
       {
         deleteNode=nowNode;
@@ -44,6 +51,7 @@ class sortedChain:public dictionary<K,E>
     void  insert(const pair <const K,E> &) ;
 
   private:
+    pair<const K,E> *m_thefirst;
     pairNode<K,E> * m_firstNode;
     int m_Size;
 
@@ -55,7 +63,7 @@ pair<const K,E> * sortedChain<K,E>::find(const K & theKey) const
   pairNode<K,E> *  nowNode=m_firstNode;
 
 
-  while(nowNode!=nullptr &&nowNode ->m_element.first!=theKey)
+  while(theKey<nowNode ->m_element.first)
   {
     nowNode=nowNode->m_next;
   }
@@ -72,7 +80,7 @@ void  sortedChain<K,E>::erase(const K &theKey)
   pairNode<K,E> *  nowNode=m_firstNode;
   pairNode<K,E> *  beforeNode=nullptr;
 
-  while(nowNode!=nullptr &&nowNode->m_element.first<theKey)
+  while(theKey<nowNode->m_element.first)
   {
     beforeNode=nowNode;
     nowNode=nowNode->m_next;
@@ -96,12 +104,11 @@ void  sortedChain<K,E>::insert(const pair <const K,E> &thePair)
   pairNode< K,E> *  nowNode=m_firstNode;
   pairNode< K,E> *  beforeNode=nullptr;
 
-  while(nowNode!=nullptr &&nowNode->m_element.first<thePair.first)
+  while(thePair.first<nowNode->m_element.first)
   {
     beforeNode=nowNode;
     nowNode=nowNode->m_next;
   }
-
   if(nowNode!=nullptr&&nowNode->m_element.first==thePair.first)
   {
     nowNode->m_element.second=thePair.second;
@@ -114,6 +121,6 @@ void  sortedChain<K,E>::insert(const pair <const K,E> &thePair)
   else
     beforeNode->m_next=newNode;
    ++m_Size;
-
 }
+
 #endif
