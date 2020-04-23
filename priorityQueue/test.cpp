@@ -1,11 +1,11 @@
-#include "maxHeap.h"
+#include "maxHblt.h"
 #include <iostream>
 
 using namespace std;
 
 int main()
 {
-  maxHeap<int> theHeap(30) ;
+  maxHblt<int> theHeap ;
   int elem[20];
   for (int i=0;i<20;++i)
   {
@@ -20,6 +20,5 @@ int main()
   cout<<theHeap.top()<<endl;
     theHeap.pop();
   }
-
   return 0;
 }
